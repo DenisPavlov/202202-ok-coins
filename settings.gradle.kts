@@ -1,0 +1,10 @@
+rootProject.name = "202202-ok-coins"
+
+pluginManagement {
+    val kotlinVersion: String by settings
+
+    plugins {
+        kotlin("jvm") version kotlinVersion
+        kotlin("multiplatform") version kotlinVersion
+    }
+}
