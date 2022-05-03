@@ -52,17 +52,10 @@ val Coin = FC<CoinProps> { props ->
         CardActions {
             Button {
                 sx {
-                    width = 50.pct
+                    width = 100.pct
                 }
                 size = Size.small
-                +"Смотреть"
-            }
-            Button {
-                sx {
-                    width = 50.pct
-                }
-                size = Size.small
-                +"Редактировать"
+                +"Подробнее"
             }
         }
     }
