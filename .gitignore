@@ -2,3 +2,5 @@
 /.gradle/
 
 /build/
+/web-ui/build/
+/kotlin-js-store/
