@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
@@ -40,7 +43,8 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("ch.qos.logback:logback-classic:$logbackVersion")
 
-                implementation("io.ktor:ktor-server-cors:$ktorVersion") // todo - выпилить
+                // при локальном запуске нужен CORS
+                // implementation("io.ktor:ktor-server-cors:$ktorVersion")
             }
         }
 
@@ -74,7 +78,7 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     } else {
         "jsBrowserDevelopmentWebpack"
     }
-    val webpackTask = tasks.getByName<org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack>(taskName)
+    val webpackTask = tasks.getByName<KotlinWebpack>(taskName)
     dependsOn(webpackTask) // make sure JS gets compiled first
     from(File(webpackTask.destinationDirectory, webpackTask.outputFileName)) // bring output file along into the JAR
     manifest {
@@ -82,7 +86,7 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "17"
     }
