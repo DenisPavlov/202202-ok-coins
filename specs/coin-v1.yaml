@@ -1,0 +1,284 @@
+openapi: 3.0.4
+info:
+  title: CoinsBook
+  description: Апи управления коллекционными монетами
+  version: 1.0.0
+servers:
+  - url: http://localhost/v1
+tags:
+  - name: coin
+    description: Коллекционная монета
+paths:
+  /coin/create:
+    post:
+      tags:
+        - coin
+      summary: Создать новую монету в каталоге
+      operationId: coinCreate
+      requestBody:
+        description: Тело запроса
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CoinCreateRequest'
+        required: true
+      responses:
+        200:
+          description: Успех
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoinCreateResponse'
+
+  /coin/read:
+    post:
+      tags:
+        - coin
+      summary: Получить монету
+      operationId: coinRead
+      requestBody:
+        description: Тело запроса
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CoinReadRequest'
+        required: true
+      responses:
+        200:
+          description: Успех
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoinReadResponse'
+
+  /coin/update:
+    post:
+      tags:
+        - coin
+      summary: Обновить монету
+      operationId: coinUpdate
+      requestBody:
+        description: Тело запроса
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CoinUpdateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoinUpdateResponse'
+
+  /coin/delete:
+    post:
+      tags:
+        - coin
+      summary: Удалить монету
+      operationId: coinDelete
+      requestBody:
+        description: Тело запроса
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CoinDeleteRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoinDeleteResponse'
+
+components:
+  schemas:
+
+    IRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        requestType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        requestId:
+          type: string
+          description: Идентификатор запроса для отладки
+      discriminator:
+        propertyName: requestType
+        mapping:
+          create: '#/components/schemas/CoinCreateRequest'
+          read: '#/components/schemas/CoinReadRequest'
+          update: '#/components/schemas/CoinUpdateRequest'
+          delete: '#/components/schemas/CoinDeleteRequest'
+    #          search: '#/components/schemas/AdSearchRequest'
+    #          offers: '#/components/schemas/AdOffersRequest'
+
+    IResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        requestId:
+          type: string
+          description: Идентификатор запроса для отладки
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+      discriminator:
+        propertyName: responseType
+        mapping:
+          create: '#/components/schemas/CoinCreateResponse'
+          read: '#/components/schemas/CoinReadResponse'
+          update: '#/components/schemas/CoinUpdateResponse'
+          delete: '#/components/schemas/CoinDeleteResponse'
+    #          search: '#/components/schemas/AdSearchResponse'
+    #          offers: '#/components/schemas/AdOffersResponse'
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+
+    BaseCoin:
+      type: object
+      description: 'Объект описывающий коллекционную монету'
+      properties:
+        name:
+          type: string
+          description: 'Название монеты'
+        series:
+          type: string
+          description: 'Серия'
+        releaseDate:
+          type: string
+          description: 'Дата выпуска'
+        cNum:
+          type: string
+          description: 'Каталожный номер'
+        nominal:
+          type: string
+          description: 'Номинал'
+        material:
+          type: string
+          description: 'Материал'
+        weight:
+          type: string
+          description: 'Общая масса, г'
+        diameter:
+          type: string
+          description: 'Диаметр, мм'
+        thickness:
+          type: string
+          description: 'Толщина, мм'
+        allCount:
+          type: string
+          description: 'Тираж, шт'
+        averse:
+          type: string
+          description: 'Аверс'
+        reverse:
+          type: string
+          description: 'Реверс'
+        authors:
+          type: string
+          description: 'Авторы'
+        info:
+          type: string
+          description: 'Информация'
+
+    CoinCreateRequest:
+      allOf:
+        - type: object
+          properties:
+            coin:
+              $ref: '#/components/schemas/BaseCoin'
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/CoinRequestDebug'
+
+    CoinCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/CoinResponseSingle'
+
+    CoinReadRequest:
+      allOf:
+        - $ref: '#/components/schemas/CnumRequest'
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/CoinRequestDebug'
+
+    CoinReadResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/CoinResponseSingle'
+
+    CoinUpdateRequest:
+      allOf:
+        - type: object
+          properties:
+            coin:
+              $ref: '#/components/schemas/BaseCoin'
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/CoinRequestDebug'
+
+    CoinUpdateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/CoinResponseSingle'
+
+    CoinDeleteRequest:
+      allOf:
+        - $ref: '#/components/schemas/CnumRequest'
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/CoinRequestDebug'
+
+    CoinDeleteResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/CoinResponseSingle'
+
+    CoinResponseSingle:
+      allOf:
+        - type: object
+          description: Ответ с одним объектом монеты
+          properties:
+            coin:
+              $ref: '#/components/schemas/BaseCoin'
+
+    CnumRequest:
+      type: object
+      properties:
+        cNum:
+          type: string
+          description: 'Каталожный номер'
+
+    # SYSTEM INFO ======================
+    CoinRequestDebug:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/CoinRequestDebugMode'
+
+    CoinRequestDebugMode:
+      type: string
+      enum:
+        - prod
+        - test
