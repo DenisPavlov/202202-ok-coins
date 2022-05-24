@@ -10,7 +10,6 @@ import mui.material.AccordionSummary
 import mui.material.Container
 import mui.material.Typography
 import mui.system.sx
-import ok.coins.web.common.Coin
 import ok.coins.web.front.getCoinsBySeriesId
 import ok.coins.web.front.scope
 import react.FC
@@ -18,6 +17,7 @@ import react.Props
 import react.create
 import react.dom.aria.ariaControls
 import react.useState
+import ru.otus.otuskotlin.coins.api.v1.BaseCoin
 
 external interface SeriesProps : Props {
     var name: String
@@ -26,7 +26,7 @@ external interface SeriesProps : Props {
 
 val Series = FC<SeriesProps> { props ->
 
-    var coins by useState(emptyList<Coin>())
+    var coins by useState(emptyList<BaseCoin>())
 
     Accordion {
         onChange = { _, _ ->
@@ -56,10 +56,10 @@ val Series = FC<SeriesProps> { props ->
 
                 coins.forEach {
                     Coin {
-                        img = it.img
-                        name = it.name
-                        nominal = it.nominal
-                        releaseYear = it.releaseYear
+                        img = it.img!!
+                        name = it.name!!
+                        nominal = it.nominal!!
+                        releaseYear = it.releaseDate!!
                     }
                 }
             }

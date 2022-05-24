@@ -9,8 +9,8 @@ data class AddCoin(
     val releaseDate: String? = null,
     val cNum: String? = null,
     val nominal: String? = null,
-    val quality: String? = null,
-    val alloy: String? = null,
+    val quality: String? = null, // todo - заменить на материал
+    val alloy: String? = null, // todo - удалить
     val weight: String? = null,
     val diameter: String? = null,
     val thickness: String? = null,

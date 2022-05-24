@@ -2,7 +2,6 @@ package ok.coins.web.back
 
 import com.typesafe.config.ConfigFactory
 import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.call
 import io.ktor.server.application.install
@@ -14,7 +13,6 @@ import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.compression.Compression
 import io.ktor.server.plugins.compression.gzip
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
@@ -23,8 +21,9 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 import ok.coins.web.common.AddCoin
-import ok.coins.web.common.Coin
 import ok.coins.web.common.Series
+import ru.otus.otuskotlin.coins.api.v1.BaseCoin
+import ru.otus.otuskotlin.coins.api.v1.CoinCreateRequest
 
 val config = HoconApplicationConfig(ConfigFactory.load())
 val port = config.property("ktor.deployment.port").getString().toInt()
@@ -40,10 +39,10 @@ fun main() {
         }
 
         // todo - временное решение для тестирования
-        install(CORS) {
+        /*install(CORS) {
             anyHost()
             allowHeader(HttpHeaders.ContentType)
-        }
+        }*/
 
         routing {
             get("/") {
@@ -73,11 +72,11 @@ fun main() {
                 post {
                     val addCoin: AddCoin = call.receive()
                     coins.add(
-                        Coin(
+                        BaseCoin(
                             img = "https://www.cbr.ru/legacy/PhotoStore/img/${addCoin.cNum ?: ""}r.jpg",
                             name = addCoin.name ?: "",
                             nominal = addCoin.nominal ?: "",
-                            releaseYear = addCoin.releaseDate?.substringBefore("-") ?: "",
+                            releaseDate = addCoin.releaseDate,
                             seriesId = "id-3"
                         )
                     )
@@ -87,6 +86,8 @@ fun main() {
     }.start(wait = true)
 }
 
+val requests = listOf<CoinCreateRequest>()
+
 val series = listOf(
     Series("id-1", "Оружие Великой Победы (конструкторы оружия)"),
     Series("id-2", "Вооруженные силы Российской Федерации"),
@@ -94,60 +95,60 @@ val series = listOf(
 )
 
 val coins = mutableListOf(
-    Coin(
+    BaseCoin(
         img = "https://www.cbr.ru/legacy/PhotoStore/img/5714-0072r.jpg",
         name = "г. Нижний Новгород, Нижегородская область",
         nominal = "10 рублей",
-        releaseYear = "2021",
+        releaseDate = "2021",
         seriesId = "id-3"
     ),
-    Coin(
+    BaseCoin(
         img = "https://www.cbr.ru/legacy/PhotoStore/img/5714-0069r.jpg",
         name = "г. Козельск, Калужская область",
         nominal = "10 рублей",
-        releaseYear = "2020",
+        releaseDate = "2020",
         seriesId = "id-3"
     ),
-    Coin(
+    BaseCoin(
         img = "https://www.cbr.ru/legacy/PhotoStore/img/5714-0065r.jpg",
         name = "г. Клин, Московская область",
         nominal = "10 рублей",
-        releaseYear = "2019",
+        releaseDate = "2019",
         seriesId = "id-3"
     ),
-    Coin(
+    BaseCoin(
         img = "https://www.cbr.ru/legacy/PhotoStore/img/5714-0063r.jpg",
         name = "г. Вязьма, Смоленская область",
         nominal = "10 рублей",
-        releaseYear = "2019",
+        releaseDate = "2019",
         seriesId = "id-3"
     ),
-    Coin(
+    BaseCoin(
         img = "https://www.cbr.ru/legacy/PhotoStore/img/5714-0060r.jpg",
         name = "г. Гороховец, Владимирская область (1168 г.)",
         nominal = "10 рублей",
-        releaseYear = "2018",
+        releaseDate = "2018",
         seriesId = "id-3"
     ),
-    Coin(
+    BaseCoin(
         img = "https://www.cbr.ru/legacy/PhotoStore/img/5714-0056r.jpg",
         name = "г. Олонец, Республика Карелия (1137 г.)",
         nominal = "10 рублей",
-        releaseYear = "2017",
+        releaseDate = "2017",
         seriesId = "id-3"
     ),
-    Coin(
+    BaseCoin(
         img = "https://www.cbr.ru/legacy/PhotoStore/img/5015-0048r.jpg",
         name = "Конструктор оружия С.А. Лавочкин",
         nominal = "10 рублей",
-        releaseYear = "2020",
+        releaseDate = "2020",
         seriesId = "id-1"
     ),
-    Coin(
+    BaseCoin(
         img = "https://www.cbr.ru/legacy/PhotoStore/img/5015-0047r.jpg",
         name = "Конструктор оружия С.В. Ильюшин",
         nominal = "10 рублей",
-        releaseYear = "2020",
+        releaseDate = "2020",
         seriesId = "id-1"
     ),
 )

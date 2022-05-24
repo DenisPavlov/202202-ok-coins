@@ -4,13 +4,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
-    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("com.github.johnrengelman.shadow")
 }
 
 val ktorVersion: String by project
 val logbackVersion: String by project
 val kotlinVersion: String by project
-val kotlinSerializationVersion: String by project
+val serializationVersion: String by project
 
 kotlin {
     jvm {
@@ -25,7 +25,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+
+                implementation(project(":api"))
             }
         }
         val commonTest by getting {

@@ -17,8 +17,8 @@ import kotlinx.browser.window
 import kotlinx.coroutines.MainScope
 import kotlinx.serialization.json.Json
 import ok.coins.web.common.AddCoin
-import ok.coins.web.common.Coin
 import ok.coins.web.common.Series
+import ru.otus.otuskotlin.coins.api.v1.BaseCoin
 
 val endpoint = window.location.origin // only needed until https://youtrack.jetbrains.com/issue/KTOR-453 is resolved
 // val endpoint = "http://0.0.0.0:9090" // for local testing
@@ -38,7 +38,7 @@ private val client = HttpClient {
     }
 }
 
-suspend fun getCoinsBySeriesId(sId: String): List<Coin> {
+suspend fun getCoinsBySeriesId(sId: String): List<BaseCoin> {
     return client.get("$endpoint/$sId/coins").body()
 }
 
