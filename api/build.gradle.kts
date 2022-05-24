@@ -9,7 +9,9 @@ val serializationVersion: String by project
 
 kotlin {
     jvm {}
-    js {}
+    js {
+        browser()
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -30,6 +32,12 @@ kotlin {
                 implementation(kotlin("test-junit"))
             }
         }
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test-js"))
+            }
+        }
+
         all {
             languageSettings.optIn("kotlin.RequiresOptIn")
         }

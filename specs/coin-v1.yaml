@@ -114,8 +114,6 @@ components:
           read: '#/components/schemas/CoinReadRequest'
           update: '#/components/schemas/CoinUpdateRequest'
           delete: '#/components/schemas/CoinDeleteRequest'
-    #          search: '#/components/schemas/AdSearchRequest'
-    #          offers: '#/components/schemas/AdOffersRequest'
 
     IResponse:
       type: object
@@ -141,8 +139,6 @@ components:
           read: '#/components/schemas/CoinReadResponse'
           update: '#/components/schemas/CoinUpdateResponse'
           delete: '#/components/schemas/CoinDeleteResponse'
-    #          search: '#/components/schemas/AdSearchResponse'
-    #          offers: '#/components/schemas/AdOffersResponse'
 
     ResponseResult:
       type: string
@@ -168,6 +164,9 @@ components:
         series:
           type: string
           description: 'Серия'
+        seriesId:
+          type: string
+          description: 'Идентификатор серии'
         releaseDate:
           type: string
           description: 'Дата выпуска'
@@ -204,6 +203,9 @@ components:
         info:
           type: string
           description: 'Информация'
+        img:
+          type: string
+          description: 'ссылка на изображение'
 
     CoinCreateRequest:
       allOf:
