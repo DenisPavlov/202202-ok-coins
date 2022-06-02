@@ -154,7 +154,7 @@ components:
         message:
           type: string
 
-    BaseCoin:
+    Coin:
       type: object
       description: 'Объект описывающий коллекционную монету'
       properties:
@@ -189,7 +189,7 @@ components:
           type: string
           description: 'Толщина, мм'
         allCount:
-          type: string
+          type: number
           description: 'Тираж, шт'
         averse:
           type: string
@@ -212,7 +212,7 @@ components:
         - type: object
           properties:
             coin:
-              $ref: '#/components/schemas/BaseCoin'
+              $ref: '#/components/schemas/Coin'
         - $ref: '#/components/schemas/IRequest'
         - $ref: '#/components/schemas/CoinRequestDebug'
 
@@ -237,7 +237,7 @@ components:
         - type: object
           properties:
             coin:
-              $ref: '#/components/schemas/BaseCoin'
+              $ref: '#/components/schemas/Coin'
         - $ref: '#/components/schemas/IRequest'
         - $ref: '#/components/schemas/CoinRequestDebug'
 
@@ -263,7 +263,7 @@ components:
           description: Ответ с одним объектом монеты
           properties:
             coin:
-              $ref: '#/components/schemas/BaseCoin'
+              $ref: '#/components/schemas/Coin'
 
     CnumRequest:
       type: object

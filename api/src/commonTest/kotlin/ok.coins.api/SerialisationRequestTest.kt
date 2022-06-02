@@ -1,6 +1,6 @@
 package ok.coins.api
 
-import ru.otus.otuskotlin.coins.api.v1.BaseCoin
+import ru.otus.otuskotlin.coins.api.v1.Coin
 import ru.otus.otuskotlin.coins.api.v1.CoinCreateRequest
 import ru.otus.otuskotlin.coins.api.v1.CoinDeleteRequest
 import ru.otus.otuskotlin.coins.api.v1.CoinReadRequest
@@ -17,7 +17,7 @@ internal class SerialisationRequestTest {
             requestType = "create",
             requestId = "123",
             mode = CoinRequestDebugMode.TEST,
-            coin = BaseCoin(
+            coin = Coin(
                 name = "г. Нижний Новгород, Нижегородская область",
                 nominal = "10 рублей"
             )
@@ -46,7 +46,7 @@ internal class SerialisationRequestTest {
             requestType = "create",
             requestId = "123",
             mode = CoinRequestDebugMode.TEST,
-            coin = BaseCoin(
+            coin = Coin(
                 name = "г. Нижний Новгород, Нижегородская область",
                 nominal = "10 рублей"
             )
