@@ -19,3 +19,4 @@ pluginManagement {
 include("web-ui")
 include("api")
 include("mappers")
+include("common")

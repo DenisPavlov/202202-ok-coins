@@ -1,0 +1,5 @@
+### Coins
+GET http://localhost:9090/coins
+
+### Hello
+GET http://0.0.0.0:9090/series

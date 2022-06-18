@@ -11,12 +11,12 @@ import ok.coins.common.models.series.Series
 import ok.coins.common.utils.NONE
 
 data class CoinsCatalogContext(
-    val command: CoinsCatalogCommand = CoinsCatalogCommand.NONE,
+    var command: CoinsCatalogCommand = CoinsCatalogCommand.NONE,
     var state: CoinsCatalogState = CoinsCatalogState.NONE,
     val errors: MutableList<CoinsCatalogError> = mutableListOf(),
-    val workMode: CoinsCatalogWorkMode = CoinsCatalogWorkMode.PROD,
-    val requestId: CoinsCatalogRequestId = CoinsCatalogRequestId.NONE,
-    val timeStart: Instant = Instant.NONE,
+    var workMode: CoinsCatalogWorkMode = CoinsCatalogWorkMode.PROD,
+    var requestId: CoinsCatalogRequestId = CoinsCatalogRequestId.NONE,
+    var timeStart: Instant = Instant.NONE,
 
     // series
     var seriesRequest: Series = Series(),

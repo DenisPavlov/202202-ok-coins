@@ -161,12 +161,6 @@ components:
         name:
           type: string
           description: 'Название монеты'
-        series:
-          type: string
-          description: 'Серия'
-        seriesId:
-          type: string
-          description: 'Идентификатор серии'
         releaseDate:
           type: string
           description: 'Дата выпуска'
@@ -189,7 +183,7 @@ components:
           type: string
           description: 'Толщина, мм'
         allCount:
-          type: number
+          type: integer
           description: 'Тираж, шт'
         averse:
           type: string

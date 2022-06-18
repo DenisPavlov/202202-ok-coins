@@ -1,6 +1,6 @@
 package ok.coins.common.models.coin
 
-import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import ok.coins.common.models.series.SeriesId
 import ok.coins.common.utils.NONE
 
@@ -8,7 +8,7 @@ data class Coin(
   var id: CoinId = CoinId.NONE,
   var name: String = String.NONE,
   var seriesId: SeriesId = SeriesId.NONE,
-  var releaseDate: Instant = Instant.NONE,
+  var releaseDate: LocalDate = LocalDate.NONE,
   var cNum: String = String.NONE,
   var nominal: Nominal = Nominal.NONE,
   var material: String = String.NONE,
