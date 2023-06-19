@@ -6,3 +6,5 @@ fun sout(block: () -> Any?) {
     val result = block()
     println(result)
 }
+
+object NotInCurrentFile: StudentStatus()
