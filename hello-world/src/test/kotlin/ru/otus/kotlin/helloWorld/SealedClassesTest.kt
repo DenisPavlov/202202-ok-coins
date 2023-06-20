@@ -1,6 +1,7 @@
 package ru.otus.kotlin.helloWorld
 
-import org.junit.jupiter.api.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class SealedClassesTest {
     @Test
@@ -12,5 +13,6 @@ class SealedClassesTest {
             is Graduated -> "4"
             is Active -> "3"
         }
+        assertEquals("3", status)
     }
 }

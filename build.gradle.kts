@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+
 plugins {
     kotlin("jvm") apply false
 }
@@ -8,5 +11,17 @@ version = "0.0.1"
 allprojects {
     repositories {
         mavenCentral()
+    }
+}
+
+subprojects {
+    group = rootProject.group
+    version = rootProject.version
+
+    tasks.withType<KotlinCompilationTask<*>>().configureEach {
+        kotlinExtension.jvmToolchain(11)
+        compilerOptions {
+            freeCompilerArgs.addAll("-Xjsr305=strict", "-opt-in=kotlin.RequiresOptIn")
+        }
     }
 }

@@ -2,4 +2,5 @@
 
 ## Help
 ### gradle
+- run gradle - `./gradlew clean build`
 - run gradle subtask - `./gradlew clean :hello-world:test`
