@@ -19,7 +19,7 @@ subprojects {
     version = rootProject.version
 
     tasks.withType<KotlinCompilationTask<*>>().configureEach {
-        kotlinExtension.jvmToolchain(11)
+        kotlinExtension.jvmToolchain(17)
         compilerOptions {
             freeCompilerArgs.addAll("-Xjsr305=strict", "-opt-in=kotlin.RequiresOptIn")
         }
