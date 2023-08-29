@@ -2,3 +2,5 @@
 /.gradle/
 /hello-world/build/
 /coin-dsl/build/
+/vk-analyzer/build/
+/info/creds.md
